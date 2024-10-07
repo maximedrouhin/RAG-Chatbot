@@ -1,3 +1,4 @@
+from dotenv import load_dotenv
 from llama_index.core import SimpleDirectoryReader, VectorStoreIndex, StorageContext, load_index_from_storage
 from llama_index.core import PromptTemplate, Settings
 from llama_index.llms.openai import OpenAI
@@ -17,11 +18,15 @@ import random
 # - in a conda env: 'conda env config vars set OPENAI_API_KEY=api_key', then 'conda deactivate', then 'conda activate {env_name}'
 # run script with : streamlit run app.py
 
-DATA_DIR = "./data"
+# DATA_DIR = "./data"
+DATA_DIR = "./Science4All"
 INDEX_DIR = "./storage"
 LLM_MODEL_NAME = "gpt-4o-mini"
 
-llm = OpenAI(model = LLM_MODEL_NAME)
+load_dotenv()
+api_key = os.getenv('API_KEY')
+
+llm = OpenAI(model = LLM_MODEL_NAME, api_key = api_key)
 Settings.llm = llm
 
 # to also change the embedding model:
@@ -123,6 +128,3 @@ if st.session_state.messages[-1]["role"] == "user":
             #for node in response.source_nodes:
             #    print("\n----------------")
             #    print(f"Texte utilisé pour répondre : {node.text}")
-
-
-    
