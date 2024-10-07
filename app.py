@@ -24,9 +24,10 @@ INDEX_DIR = "./storage"
 LLM_MODEL_NAME = "gpt-4o-mini"
 
 load_dotenv()
-api_key = os.getenv('API_KEY')
+# os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
 
-llm = OpenAI(model = LLM_MODEL_NAME, api_key = api_key)
+
+llm = OpenAI(model = LLM_MODEL_NAME)
 Settings.llm = llm
 
 # to also change the embedding model:
@@ -96,7 +97,7 @@ if "messages" not in st.session_state:
 if prompt := st.chat_input("Que veux-tu savoir, humain ?"):
     st.session_state.messages.append({"role": "user", "content": prompt})
 
-gouroufabulus_filepath = "media/gourou.png"
+gouroufabulus_filepath = "media/Science4All.jpg"
 # Display chat messages with appropriate avatars
 for message in st.session_state.messages:
     with st.chat_message(message["role"], avatar=gouroufabulus_filepath if message["role"] == "assistant" else '💰'):
